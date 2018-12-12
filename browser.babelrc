@@ -4,7 +4,8 @@
     [
       "@babel/env",
       {
-        "targets": "last 2 version, > 1%, not dead"
+        "targets": "last 2 version, > 1%, not dead",
+        "useBuiltIns": "usage"
       }
     ]
   ],
