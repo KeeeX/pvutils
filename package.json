@@ -7,6 +7,10 @@
     {
       "email": "rmh@unmitigatedrisk.com",
       "name": "Ryan Hurst"
+    },
+    {
+      "email": "gabriel@keeex.net",
+      "name": "Gabriel Paul \"Cley Faye\" Risterucci"
     }
   ],
   "repository": {
@@ -19,24 +23,33 @@
   },
   "scripts": {
     "prepublishOnly": "npm run build",
-    "build": "babel src --compact=false --out-dir build --source-maps",
+    "build": "babel src --no-babelrc --config-file=./node.babelrc --out-dir=build --source-maps",
+    "buildBrowser": "babel src --no-babelrc --config-file=./browser.babelrc --out-dir=buildBrowser --source-maps",
     "watch": "babel src --compact=false --out-dir build --source-maps --watch",
-    "test": "cross-env NODE_ENV=test nyc mocha --require babel-register --require babel-polyfill"
+    "test": "cross-env NODE_ENV=test nyc mocha --require @babel/register --require @babel/polyfill",
+    "prepack": "npm run build && npm run buildBrowser"
   },
   "jsnext:main": "./src/utils.js",
   "module": "./src/utils.js",
+  "browser": "./buildBrowser/utils.js",
   "main": "./build/utils.js",
   "devDependencies": {
-    "babel-cli": "latest",
-    "mocha": "^3.0.2",
-    "nyc": "^11.6.0",
-    "cross-env": "^5.1.4",
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/register": "^7.0.0",
     "babel-plugin-istanbul": "^4.1.5",
-    "babel-preset-env": "latest",
-    "babel-polyfill": "^6.26.0",
-    "eslint": "^4.19.1"
+    "cross-env": "^5.1.4",
+    "eslint": "^4.19.1",
+    "mocha": "^3.0.2",
+    "nyc": "^11.6.0"
   },
+  "files": [
+    "build",
+    "buildBrowser"
+  ],
   "name": "pvutils",
-  "version": "1.0.16",
+  "version": "1.0.16-es5",
   "license": "MIT"
 }
